@@ -1,3 +1,4 @@
+import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterMethod;
@@ -15,13 +16,13 @@ public class MainTest {
     @BeforeMethod
     public void setUp() {
         Logger.getLogger("org.openqa.selenium").setLevel(Level.OFF);
+        System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, "/tools/chromedriver/chromedrive.exe");
         ChromeOptions options = new ChromeOptions();
         try {
             driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
-
     }
 
     @AfterMethod
