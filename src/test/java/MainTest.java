@@ -35,14 +35,14 @@ public class MainTest {
         System.out.println("Browser Name: " + getCurrentDriver().getCapabilities().getBrowserName());
     }
 
-//    @Test
-//    public void firefoxDriverTest() {
-//        RemoteWebDriver driver = getBrowser("firefox");
-//        setCurrentDriver(driver);
-//        getCurrentDriver().get(url);
-//        System.out.println("Page Title: " + getCurrentDriver().getTitle());
-//        System.out.println("Browser Name: " + getCurrentDriver().getCapabilities().getBrowserName());
-//    }
+    @Test
+    public void firefoxDriverTest() {
+        RemoteWebDriver driver = getBrowser("firefox");
+        setCurrentDriver(driver);
+        getCurrentDriver().get(url);
+        System.out.println("Page Title: " + getCurrentDriver().getTitle());
+        System.out.println("Browser Name: " + getCurrentDriver().getCapabilities().getBrowserName());
+    }
 
     @Test
     public void ieDriverTest() {
