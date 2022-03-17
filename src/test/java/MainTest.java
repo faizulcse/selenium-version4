@@ -1,5 +1,6 @@
-import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -11,28 +12,81 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MainTest {
-    RemoteWebDriver driver;
+    ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
+    String url = "https://google.com";
+    String remoteUrl = "http://localhost:4444/wd/hub";
 
     @BeforeMethod
     public void setUp() {
-        Logger.getLogger("org.openqa.selenium").setLevel(Level.OFF);
-        System.setProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY, "/tools/chromedriver/chromedrive.exe");
-        ChromeOptions options = new ChromeOptions();
-        try {
-            driver = new RemoteWebDriver(new URL("http://localhost:4444/wd/hub"), options);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
     }
 
     @AfterMethod
     public void tearDown() {
-        if (driver != null)
-            driver.quit();
+        if (getCurrentDriver() != null)
+            getCurrentDriver().quit();
     }
 
     @Test
-    public void driverSetupTest() {
-        System.out.println(driver.getTitle());
+    public void chromeDriverTest() {
+        RemoteWebDriver driver = getBrowser("chrome");
+        setCurrentDriver(driver);
+        getCurrentDriver().get(url);
+        System.out.println("Page Title: " + getCurrentDriver().getTitle());
+        System.out.println("Browser Name: " + getCurrentDriver().getCapabilities().getBrowserName());
+    }
+
+//    @Test
+//    public void firefoxDriverTest() {
+//        RemoteWebDriver driver = getBrowser("firefox");
+//        setCurrentDriver(driver);
+//        getCurrentDriver().get(url);
+//        System.out.println("Page Title: " + getCurrentDriver().getTitle());
+//        System.out.println("Browser Name: " + getCurrentDriver().getCapabilities().getBrowserName());
+//    }
+
+    @Test
+    public void ieDriverTest() {
+        RemoteWebDriver driver = getBrowser("ie");
+        setCurrentDriver(driver);
+        getCurrentDriver().get(url);
+        System.out.println("Page Title: " + getCurrentDriver().getTitle());
+        System.out.println("Browser Name: " + getCurrentDriver().getCapabilities().getBrowserName());
+    }
+
+    public RemoteWebDriver getBrowser(String browser) {
+        Logger.getLogger("org.openqa.selenium").setLevel(Level.OFF);
+        try {
+            switch (browser) {
+                case "chrome":
+                    return new RemoteWebDriver(new URL(remoteUrl), getChromeOptions());
+                case "firefox":
+                    return new RemoteWebDriver(new URL(remoteUrl), getFirefoxOptions());
+                case "ie":
+                    return new RemoteWebDriver(new URL(remoteUrl), getInternetExplorerOptions());
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ChromeOptions getChromeOptions() {
+        return new ChromeOptions();
+    }
+
+    public FirefoxOptions getFirefoxOptions() {
+        return new FirefoxOptions();
+    }
+
+    public InternetExplorerOptions getInternetExplorerOptions() {
+        return new InternetExplorerOptions();
+    }
+
+    public RemoteWebDriver getCurrentDriver() {
+        return driver.get();
+    }
+
+    public void setCurrentDriver(RemoteWebDriver driver) {
+        this.driver.set(driver);
     }
 }

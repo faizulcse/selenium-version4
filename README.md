@@ -1,1 +1,3 @@
-java -jar selenium-server-standalone-3.141.59.jar -port 4444
+server run command: java -jar selenium-server-standalone-3.141.59.jar -role hub -port 4444 
+client run command: java -Dwebdriver.chrome.driver="/Users/NaveenKhunteta/Downloads/chromedriver" -jar selenium-server-standalone-3.141.59.jar -role node -hub http://192.168.0.102:4444/grid/register
+client run command: java -Dwebdriver.chrome.driver="/Users/NaveenKhunteta/Downloads/chromedriver" -jar selenium-server-standalone-3.141.59.jar -role node -hub http://localhost:4444/grid/register
