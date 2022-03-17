@@ -6,7 +6,7 @@
             <class name="MainTest">
                 <methods>
                     <include name="chromeDriverTest"/>
-                    <exclude name="firefoxDriverTest"/>
+                    <include name="firefoxDriverTest"/>
                     <include name="ieDriverTest"/>
                 </methods>
             </class>
