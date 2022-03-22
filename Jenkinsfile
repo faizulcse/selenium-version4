@@ -11,7 +11,7 @@ node('master') {
     }
 
     stage("Build Docker Image") {
-        sh "docker build -t ${image} -f '${workspace}/Dockerfile' . "
+        sh "docker build --tag ${image} --file '${workspace}/Dockerfile' '${workspace}' "
     }
 
     stage("Run Selenium Hub & Node") {
