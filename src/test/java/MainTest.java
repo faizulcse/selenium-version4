@@ -15,7 +15,7 @@ public class MainTest {
     ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
     String url = "https://google.com";
 //    String remoteUrl = "http://localhost:4444/wd/hub";
-    String remoteUrl = "http://172.17.0.2:4444/wd/hub";
+    String remoteUrl = "http://hub:4444/wd/hub";
 
     @BeforeMethod
     public void setUp() {
