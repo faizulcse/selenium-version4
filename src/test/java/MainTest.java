@@ -15,7 +15,7 @@ public class MainTest {
     ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
     String url = "https://google.com";
 //    String remoteUrl = "http://localhost:4444/wd/hub";
-    String remoteUrl = "http://172.17.0.1:4444/wd/hub";
+    String remoteUrl = "http://172.17.0.2:4444/wd/hub";
 
     @BeforeMethod
     public void setUp() {
@@ -45,15 +45,6 @@ public class MainTest {
         System.out.println("Browser Name: " + getCurrentDriver().getCapabilities().getBrowserName());
     }
 
-    @Test
-    public void ieDriverTest() {
-        RemoteWebDriver driver = getBrowser("ie");
-        setCurrentDriver(driver);
-        getCurrentDriver().get(url);
-        System.out.println("Page Title: " + getCurrentDriver().getTitle());
-        System.out.println("Browser Name: " + getCurrentDriver().getCapabilities().getBrowserName());
-    }
-
     public RemoteWebDriver getBrowser(String browser) {
         Logger.getLogger("org.openqa.selenium").setLevel(Level.OFF);
         try {
@@ -62,8 +53,8 @@ public class MainTest {
                     return new RemoteWebDriver(new URL(remoteUrl), getChromeOptions());
                 case "firefox":
                     return new RemoteWebDriver(new URL(remoteUrl), getFirefoxOptions());
-                case "ie":
-                    return new RemoteWebDriver(new URL(remoteUrl), getInternetExplorerOptions());
+                default:
+                    throw new RuntimeException("Please enter correct browser name [" + browser + "]");
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();
