@@ -1,4 +1,3 @@
-import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerOptions;
@@ -15,7 +14,7 @@ import java.util.logging.Logger;
 public class MainTest {
     ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
     String url = "https://google.com";
-    String remoteUrl = "http://localhost:4444/wd/hub";
+    String remoteUrl = "http://192.168.100.4:4444/wd/hub";
 
     @BeforeMethod
     public void setUp() {
@@ -28,7 +27,7 @@ public class MainTest {
     }
 
     @Test
-    public void chromeDriverTest() {
+    public void chromeDriverTest() throws InterruptedException {
         RemoteWebDriver driver = getBrowser("chrome");
         setCurrentDriver(driver);
         getCurrentDriver().get(url);

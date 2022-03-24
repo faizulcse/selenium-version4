@@ -18,6 +18,10 @@ node('master') {
         sh "docker-compose -f docker-compose.yml -p ${network} up -d --remove-orphans"
     }
 
+    stage("Run Selenium Grid Hub and Scaling Node") {
+        sh "docker-compose -p ${JOB_NAME} up --scale ${BROWSER}=${NODE_COUNT} --remove-orphans -d"
+    }
+
     stage("Execute Automation Tests") {
         def exitCode = sh script: "docker run -t --name ${container} ${image} mvn clean test", returnStatus: true
         if (exitCode == 1)

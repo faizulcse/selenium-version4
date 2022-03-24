@@ -1,11 +1,5 @@
-### Start hub using below command:
+### Start selenium4:
 
 ```cmd
-java -jar selenium-server-standalone-3.141.59.jar -role hub -hubConfig grid_hub_config.json
+java -jar selenium-server-4.1.2.jar standalone
 ```
-
-### Start node using below command:
-
-````cmd
-java -Dwebdriver.chrome.driver="drivers/chromedriver.exe" -Dwebdriver.gecko.driver="drivers/geckodriver.exe" -jar selenium-server-standalone-3.141.59.jar -role node -nodeConfig node_config.json
-````
