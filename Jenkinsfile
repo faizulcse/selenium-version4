@@ -15,7 +15,7 @@ node('master') {
     }
 
     stage("Run Selenium Hub & Node") {
-        sh "docker-compose -f docker-compose.yml -p ${network} up -d --remove-orphans"
+        sh "docker-compose -f docker-compose.yaml -p ${network} up -d --remove-orphans"
     }
 
     stage("Run Selenium Grid Hub and Scaling Node") {
