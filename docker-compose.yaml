@@ -1,6 +1,6 @@
 version: "3"
 services:
-  selenium-hub:
+  hub:
     image: selenium/hub:3.141.59-20210929
     container_name: selenium-hub
     ports:
@@ -11,17 +11,15 @@ services:
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
-      - selenium-hub
+      - hub
     environment:
-      - HUB_HOST=selenium-hub
-      - HUB_PORT=4444
+      - HUB_HOST=hub
 
   firefox:
     image: selenium/node-firefox:3.141.59-20210929
     volumes:
       - /dev/shm:/dev/shm
     depends_on:
-      - selenium-hub
+      - hub
     environment:
-      - HUB_HOST=selenium-hub
-      - HUB_PORT=4444
+      - HUB_HOST=hub

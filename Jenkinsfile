@@ -19,11 +19,11 @@ node('master') {
     }
 
     stage("Run Selenium Grid Hub and Scaling Node") {
-        sh "docker-compose -p ${JOB_NAME} up --scale ${BROWSER}=${NODE_COUNT} --remove-orphans -d"
+        sh "docker-compose -p ${network} up --scale chrome=5 --remove-orphans -d"
     }
-
+// --network=${JOB_NAME}_default
     stage("Execute Automation Tests") {
-        def exitCode = sh script: "docker run -t --name ${container} ${image} mvn clean test", returnStatus: true
+        def exitCode = sh script: "docker run -t --network=${network}_default --name ${container} ${image} mvn clean test", returnStatus: true
         if (exitCode == 1)
             currentBuild.result = "UNSTABLE"
     }
