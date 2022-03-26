@@ -4,7 +4,7 @@ node('master') {
 
     def image = "${build_tag}-image"
     def container = "${build_tag}-container"
-    def network = "hub_network"
+    def network = "hubnetwork"
 
     stage("Checkout Repository") {
         checkout scm
