@@ -23,7 +23,7 @@ node('master') {
         sh "docker-compose -p ${network} up --scale firefox=5 --remove-orphans -d"
     }
     stage("Execute Automation Tests") {
-        def exitCode = sh script: "docker run -t --network=${network}_default --name ${container} ${image} mvn clean test", returnStatus: true
+        def exitCode = sh script: "docker run -t --network=${network}_default --name ${container} ${image} mvn clean test -q", returnStatus: true
         if (exitCode == 1)
             currentBuild.result = "UNSTABLE"
     }
