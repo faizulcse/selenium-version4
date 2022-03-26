@@ -1,0 +1,26 @@
+version: '3'
+services:
+  hub:
+    image: selenium/standalone-docker
+    ports:
+      - "4444:4444"
+    environment:
+      HUB_HOST: hub
+
+  chrome:
+    image: selenium/standalone-chrome
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - hub
+    environment:
+      - HUB_HOST=hub
+
+  firefox:
+    image: selenium/standalone-firefox
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - hub
+    environment:
+      - HUB_HOST=hub
