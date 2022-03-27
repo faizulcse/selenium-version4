@@ -14,7 +14,8 @@ import java.util.logging.Logger;
 public class MainTest {
     ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
     String url = "https://google.com";
-    String remoteUrl = "http://hub:4444/wd/hub";
+    String hubUrl = "http://hub:4444/wd/hub";
+    String localhostUrl = "http://localhost:4444/wd/hub";
 
     @BeforeMethod
     public void setUp() {
@@ -49,9 +50,9 @@ public class MainTest {
         try {
             switch (browser) {
                 case "chrome":
-                    return new RemoteWebDriver(new URL(remoteUrl), getChromeOptions());
+                    return new RemoteWebDriver(new URL(localhostUrl), getChromeOptions());
                 case "firefox":
-                    return new RemoteWebDriver(new URL(remoteUrl), getFirefoxOptions());
+                    return new RemoteWebDriver(new URL(hubUrl), getFirefoxOptions());
                 default:
                     throw new RuntimeException("Please enter correct browser name [" + browser + "]");
             }
