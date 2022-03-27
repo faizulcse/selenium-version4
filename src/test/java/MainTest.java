@@ -52,7 +52,7 @@ public class MainTest {
                 case "chrome":
                     return new RemoteWebDriver(new URL(localhostUrl), getChromeOptions());
                 case "firefox":
-                    return new RemoteWebDriver(new URL(hubUrl), getFirefoxOptions());
+                    return new RemoteWebDriver(new URL(localhostUrl), getFirefoxOptions());
                 default:
                     throw new RuntimeException("Please enter correct browser name [" + browser + "]");
             }
